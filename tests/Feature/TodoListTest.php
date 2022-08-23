@@ -2,26 +2,48 @@
 
 namespace Tests\Feature;
 
+use App\Models\TodoList;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TodoListTest extends TestCase
 {
+    // using this trait to run all the migrations first
+    // ..and to clean the database every time the tests runs
+    use RefreshDatabase;
 
-    public function test_fetch_todo_list()
-    {
-        // every test has 3 phases: 1. preperation 2. action 3. assertion
-        // or in other words: prepare, perform, predict
+    private $list;
 
-        // routeServiceProvider-> 'api/' is prefixed!
-        //$response = $this->getJson('api/todo-list');
+    public function setUp():void {
 
-        // but instead of hardcoding the url, use the name
+        parent::setUp();
+        $this->list = TodoList::factory()->create(['name' => 'my-list']);
+    }
+
+    public function test_fetch_todo_lists() {
+
+        // moved into setUp:  TodoList::factory()->create(['name' => 'my-list']);
+
         $response = $this->getJson(route('todo-list.index'));
 
-        //dd($response->json());
+        // dd($response->json());
 
+        // predict
         $this->assertEquals(1, count($response->json()));
+
+        $this->assertEquals('my-list', $response->json()[0]['name']);
+
+    }
+
+    public function test_fetch_single_todo_list() {
+
+        // created in setUp:  $list = TodoList::factory()->create();
+
+        $response = $this->getJson(route('todo-list.show', $this->list->id))
+                    ->assertOk()
+                    ->json();
+
+        $this->assertEquals($response['name'], $this->list->name);
     }
 }
