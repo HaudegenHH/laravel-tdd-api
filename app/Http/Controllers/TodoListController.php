@@ -23,6 +23,9 @@ class TodoListController extends Controller
 
     public function store(Request $request) {
 
+        // validate first
+        $request->validate(['name' => ['required']]);
+
         $list = TodoList::create($request->all());
 
         // test pass as soon as possible..
@@ -30,5 +33,20 @@ class TodoListController extends Controller
         // return response($list, Response::HTTP_CREATED);
         // or just:
         return $list;
+    }
+
+    public function destroy(TodoList $list) {
+
+        $list->delete();
+        return response('', Response::HTTP_NO_CONTENT);
+    }
+
+    public function update(Request $request, TodoList $list) {
+
+        $request->validate(['name' => ['required']]);
+
+        $list->update($request->all());
+
+        return response($list);
     }
 }
