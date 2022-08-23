@@ -8,3 +8,4 @@
 3. Using a factory
 4. Using faker
 5. 2nd test ('test_fetch_single_todo_list')
+6. 3rd test ('test_store_new_todo_list')
