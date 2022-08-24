@@ -14,3 +14,5 @@
 9. Refactoring api routes (apiResource)
 10. Refactoring the parent TestCase class
 11. Refactoring: move validation from controller to 'TodoListRequest' class
+
+12. Testing manually with Postman

@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodoListController;
 use Illuminate\Support\Facades\Route;
-
-Route::apiResource('todo-list', TodoListController::class);
 
 // Route::get('todo-list', [TodoListController::class, 'index'])
 // ->name('todo-list.index');
@@ -19,3 +18,9 @@ Route::apiResource('todo-list', TodoListController::class);
 
 // Route::patch('todo-list/{list}', [TodoListController::class, 'update'])
 // ->name('todo-list.update');
+
+Route::apiResource('todo-list', TodoListController::class);
+
+
+Route::get('task', [TaskController::class, 'index'])->name('task.index');
+Route::post('task', [TaskController::class, 'store'])->name('task.store');
