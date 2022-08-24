@@ -11,3 +11,6 @@
 6. 3rd test ('test_store_new_todo_list')
 7. 4th try to store without data
 8. 5th/6th update & delete tests
+9. Refactoring api routes (apiResource)
+10. Refactoring the parent TestCase class
+11. Refactoring: move validation from controller to 'TodoListRequest' class
